@@ -24,7 +24,7 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  *
- *	$FreeBSD: src/sys/dev/twa/tw_osl_externs.h,v 1.2.10.2.2.1 2010/12/21 17:09:25 kensmith Exp $
+ *	$FreeBSD: src/sys/dev/twa/tw_osl_includes.h,v 1.5.10.1.6.1 2010/12/21 17:09:25 kensmith Exp $
  */
 
 /*
@@ -36,59 +36,45 @@
 
 
 
-#ifndef TW_OSL_EXTERNS_H
+#ifndef TW_OSL_INCLUDES_H
 
-#define TW_OSL_EXTERNS_H
+#define TW_OSL_INCLUDES_H
 
 
 /*
- * Data structures and functions global to the OS Layer.
+ * All header files needed by the OS Layer.
  */
 
 
-/* External data structures. */
+#include <sys/param.h>
+#include <sys/systm.h>
+#include <sys/malloc.h>
+#include <sys/kernel.h>
+#include <sys/module.h>
+#include <sys/sysctl.h>
+#include <sys/bus.h>
+#include <sys/conf.h>
+#include <sys/clock.h>
+#include <sys/disk.h>
+#include <sys/stat.h>
+#include <sys/devicestat.h>
+#include <sys/taskqueue.h>
 
-extern int	mp_ncpus;
+#include <machine/bus.h>
+#include <machine/resource.h>
+#include <machine/stdarg.h>
 
+#include <vm/vm.h>
 
+#include <sys/rman.h>
 
-/* Functions in tw_osl_freebsd.c */
+#include <dev/pci/pcireg.h>
+#include <dev/pci/pcivar.h>
 
-/* Build a firmware passthru cmd pkt, and submit it to CL. */
-extern TW_INT32	tw_osli_fw_passthru(struct twa_softc *sc, TW_INT8 *buf);
-
-/* Get an OSL internal request context packet. */ 
-extern struct tw_osli_req_context *tw_osli_get_request(struct twa_softc *sc);
-
-/* Map data to DMA'able memory. */
-extern TW_INT32	tw_osli_map_request(struct tw_osli_req_context *req);
-
-/* Undo mapping. */
-extern TW_VOID	tw_osli_unmap_request(struct tw_osli_req_context *req);
-
-
-
-/* Functions in tw_osl_cam.c */
-
-/* Attach to CAM. */
-extern TW_INT32	tw_osli_cam_attach(struct twa_softc *sc);
-
-/* Detach from CAM. */
-extern TW_VOID	tw_osli_cam_detach(struct twa_softc *sc);
-
-/* Request CAM for a bus scan. */
-extern TW_INT32	tw_osli_request_bus_scan(struct twa_softc *sc);
-
-/* Freeze ccb flow from CAM. */
-extern TW_VOID	tw_osli_disallow_new_requests(struct twa_softc *sc,
-	struct tw_cl_req_handle *req_handle);
-
-/* OSL's completion routine for SCSI I/O's. */
-extern TW_VOID	tw_osl_complete_io(struct tw_cl_req_handle *req_handle);
-
-/* OSL's completion routine for passthru requests. */
-extern TW_VOID	tw_osl_complete_passthru(struct tw_cl_req_handle *req_handle);
+#include <dev/twa/tw_osl_share.h>
+#include <dev/twa/tw_cl_share.h>
+#include <dev/twa/tw_osl_externs.h>
 
 
 
-#endif /* TW_OSL_EXTERNS_H */
+#endif /* TW_OSL_INCLUDES_H */
