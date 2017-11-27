@@ -38,59 +38,29 @@
 
 
 
-#ifndef TW_OSL_EXTERNS_H
+#ifndef TW_OSL_TYPES_H
 
-#define TW_OSL_EXTERNS_H
+#define TW_OSL_TYPES_H
 
 
 /*
- * Data structures and functions global to the OS Layer.
+ * typedefs shared between OSL and CL, and defined by OSL.
  */
 
 
-/* External data structures. */
+typedef void			TW_VOID;
+typedef char			TW_INT8;
+typedef unsigned char		TW_UINT8;
+typedef short			TW_INT16;
+typedef unsigned short		TW_UINT16;
+typedef int			TW_INT32;
+typedef unsigned int		TW_UINT32;
+typedef long long		TW_INT64;
+typedef unsigned long long	TW_UINT64;
 
-extern int	mp_ncpus;
-
-
-
-/* Functions in tw_osl_freebsd.c */
-
-/* Build a firmware passthru cmd pkt, and submit it to CL. */
-extern TW_INT32	tw_osli_fw_passthru(struct twa_softc *sc, TW_INT8 *buf);
-
-/* Get an OSL internal request context packet. */ 
-extern struct tw_osli_req_context *tw_osli_get_request(struct twa_softc *sc);
-
-/* Map data to DMA'able memory. */
-extern TW_INT32	tw_osli_map_request(struct tw_osli_req_context *req);
-
-/* Undo mapping. */
-extern TW_VOID	tw_osli_unmap_request(struct tw_osli_req_context *req);
+typedef time_t			TW_TIME;
+typedef struct mtx		TW_LOCK_HANDLE;
 
 
 
-/* Functions in tw_osl_cam.c */
-
-/* Attach to CAM. */
-extern TW_INT32	tw_osli_cam_attach(struct twa_softc *sc);
-
-/* Detach from CAM. */
-extern TW_VOID	tw_osli_cam_detach(struct twa_softc *sc);
-
-/* Request CAM for a bus scan. */
-extern TW_INT32	tw_osli_request_bus_scan(struct twa_softc *sc);
-
-/* Freeze ccb flow from CAM. */
-extern TW_VOID	tw_osli_disallow_new_requests(struct twa_softc *sc,
-	struct tw_cl_req_handle *req_handle);
-
-/* OSL's completion routine for SCSI I/O's. */
-extern TW_VOID	tw_osl_complete_io(struct tw_cl_req_handle *req_handle);
-
-/* OSL's completion routine for passthru requests. */
-extern TW_VOID	tw_osl_complete_passthru(struct tw_cl_req_handle *req_handle);
-
-
-
-#endif /* TW_OSL_EXTERNS_H */
+#endif /* TW_OSL_TYPES_H */
