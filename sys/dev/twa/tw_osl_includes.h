@@ -38,78 +38,45 @@
 
 
 
-#ifndef TW_OSL_SHARE_H
+#ifndef TW_OSL_INCLUDES_H
 
-#define TW_OSL_SHARE_H
+#define TW_OSL_INCLUDES_H
 
 
 /*
- * Macros, structures and functions shared between OSL and CL,
- * and defined by OSL.
+ * All header files needed by the OS Layer.
  */
 
 
 #include <sys/param.h>
 #include <sys/systm.h>
+#include <sys/malloc.h>
 #include <sys/kernel.h>
-#include <sys/clock.h>
-#include <sys/lock.h>
-#include <sys/mutex.h>
+#include <sys/module.h>
 #include <sys/sysctl.h>
 #include <sys/bus.h>
+#include <sys/conf.h>
+#include <sys/clock.h>
+#include <sys/disk.h>
+#include <sys/stat.h>
+#include <sys/devicestat.h>
 #include <sys/taskqueue.h>
 
 #include <machine/bus.h>
-#include <machine/endian.h>
+#include <machine/resource.h>
 #include <machine/stdarg.h>
 
+#include <vm/vm.h>
+
+#include <sys/rman.h>
+
+#include <dev/pci/pcireg.h>
 #include <dev/pci/pcivar.h>
 
-#include <dev/twa/tw_osl_types.h>
-#include "opt_twa.h"
-
-
-#ifdef TWA_DEBUG
-#define TW_OSL_DEBUG	TWA_DEBUG
-#endif
-
-#ifdef TWA_ENCLOSURE_SUPPORT
-#define TW_OSL_ENCLOSURE_SUPPORT
-#endif
-
-#define TW_OSL_DRIVER_VERSION_STRING	"3.80.06.003"
-
-#define	TW_OSL_CAN_SLEEP
-
-#ifdef TW_OSL_CAN_SLEEP
-typedef TW_VOID			*TW_SLEEP_HANDLE;
-#endif /* TW_OSL_CAN_SLEEP */
-
-#define TW_OSL_PCI_CONFIG_ACCESSIBLE
-
-#if _BYTE_ORDER == _BIG_ENDIAN
-#define TW_OSL_BIG_ENDIAN
-#else
-#define TW_OSL_LITTLE_ENDIAN
-#endif
-
-#ifdef TW_OSL_DEBUG
-extern TW_INT32		TW_OSL_DEBUG_LEVEL_FOR_CL;
-#endif /* TW_OSL_DEBUG */
-
-
-/* Possible return codes from/to Common Layer functions. */
-#define TW_OSL_ESUCCESS		0		/* success */
-#define TW_OSL_EGENFAILURE	1		/* general failure */
-#define TW_OSL_ENOMEM		ENOMEM		/* insufficient memory */
-#define TW_OSL_EIO		EIO		/* I/O error */
-#define TW_OSL_ETIMEDOUT	ETIMEDOUT	/* time out */
-#define TW_OSL_ENOTTY		ENOTTY		/* invalid command */
-#define TW_OSL_EBUSY		EBUSY		/* busy -- try later */
-#define TW_OSL_EBIG		EFBIG		/* request too big */
-#define TW_OSL_EWOULDBLOCK	EWOULDBLOCK	/* sleep timed out */
-#define TW_OSL_ERESTART		ERESTART /* sleep terminated by a signal */
+#include <dev/twa/tw_osl_share.h>
+#include <dev/twa/tw_cl_share.h>
+#include <dev/twa/tw_osl_externs.h>
 
 
 
-#endif /* TW_OSL_SHARE_H */
+#endif /* TW_OSL_INCLUDES_H */
